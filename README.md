@@ -5,7 +5,8 @@ An end to end encrypted self hosted messaging solution. Designed to solve trust 
 * End to end encrypted. Transport encryption between server and client. Messages are encrypted with the clients public key that is only stored on the client machine. Server cannot view the contents of the message ever.
 ## Risks
 * IP is not anonymized, while it is not stored by the server on purpose, an adversary can modify the servers source code to log that.
-* Server how many messages a specific address has, while the server cannot see who sent the message or the message.
+* Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
+* Public and Private key are saved in plaintext on the client machine.
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
 * Clean up code and inital handshake technique.
