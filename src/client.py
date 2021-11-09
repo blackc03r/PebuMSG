@@ -7,20 +7,29 @@ HOST = '127.0.0.1'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
-privateKeyObject = generate_eth_key()
-privateKey = privateKeyObject.to_hex()
-publicKey = privateKeyObject.public_key.to_hex()
-PADDING = '{'
-BLOCK_SIZE = 16
+#privateKeyObject = generate_eth_key()
+#privateKey = privateKeyObject.to_hex()
+#publicKey = privateKeyObject.public_key.to_hex()
+try:
+    f = open('public.pem')
+    publicKey = f.readline()
+    f.close()
+    f = open('private.pem')
+    privateKey = f.readline()
+    f.close()
+except Exception as e:
+    print('Could not open public.pem and private.pem; please run the identity generator!')
+    sys.exit(0)
 def parseResponse(responsemessage):
     parsed = responsemessage.split("PEBUMSG.CASE.NEWMSG")
     messages = "New messages:"
     for i in range(1, len(parsed)):
-        msgg = parsed[i][130:]
-        msgg = str(decrypt(privateKey, b64decode(msgg)))
-        msgg = msgg.replace("b'", "")
-        msgg = msgg.replace("'","")
-        messages = messages + ("\nFrom: " + parsed[i][:130] + "\nContains: " + msgg)
+        msgg = str(decrypt(privateKey, b64decode(parsed[i])))
+
+        address = msgg[:132]
+        address = address[2:]
+        msgg = msgg[132:-1]
+        messages = messages + ("\nFrom: " + address + "\nContains: " + msgg)
     return messages
 def recieve(s):
     while True:
@@ -66,18 +75,19 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print("Node not found.")
         exit()
     recieve(s)
-    send(s, public_readable)
+    send(s, publicKey)
     message = recieve(s)
-    if (message != public_readable):
+    if (message != publicKey):
         print('UUID Recieved from server does not match')
         print(message)
-        print(public_readable)
+        print(publicKey)
+        print('Did you use PebuMSG Identity Generator?')
         exit()
     phrase = rawRecieve(s)
     decryptedPhrase = decrypt(privateKey, phrase)
     rawSend(s, decryptedPhrase)
     server_pk = recieve(s)
-    send(s, 'ok')
+    send(s, 'ACK',server_pk)
     message = recieve(s)
     print(message)
     while 1:
@@ -90,7 +100,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 data = 'PEBUMSG.CASE.SNDMSG' + sendingAddress
                 message = input("What is the message: ")
                 if (len(message) <= 2000):
-                    data += str(b64encode(encrypt(sendingAddress, bytes(message, 'utf-8'))))
+                    data += str(b64encode(encrypt(sendingAddress, bytes(publicKey + message, 'utf-8'))))
                     rawSend(s,encrypt(server_pk, bytes(data,'utf-8')))
                     print(recieve(s))
                 else:

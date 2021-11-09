@@ -15,12 +15,25 @@ HOST = ''	# Symbolic name meaning all available interfaces
 PORT = 60000	# Arbitrary non-privileged port
 currentlyConnected = ['']
 msgs = {'address':'message'}
-f = open('public.txt')
-server_pk = f.readline()
-f.close()
-f = open('private.txt')
-privateKey = f.readline()
-f.close()
+try:
+    f = open('public.txt')
+    server_pk = f.readline()
+    f.close()
+    f = open('private.txt')
+    privateKey = f.readline()
+    f.close()
+except Exception as e:
+    privateKeyObject = generate_eth_key()
+    privateKey = privateKeyObject.to_hex()
+    server_pk = privateKeyObject.public_key.to_hex()
+    f = open('public.txt', 'w')
+    f.write(server_pk)
+    f.close()
+    f = open('private.txt', 'w')
+    f.write(privateKey)
+    f.close()
+    privateKeyObject = ' '
+    
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Bind socket to local host and port
 try:
@@ -63,8 +76,6 @@ def rawRecieve(s):
             return data   
 #Start listening on socket
 s.listen(10)
-PADDING = '{'
-BLOCK_SIZE = 16
 print ('PebuMSG Server Established.')   
 def checkMessages(clientUUIDinfo):
         try :
@@ -77,42 +88,41 @@ def checkMessages(clientUUIDinfo):
         except KeyError:
             messagesExist = False
         return messagesExist
-def sendMessage(address, fromAddress, message, messagesExist):
+def sendMessage(address, fromAddress, message):
     if (checkMessages(address)):
-        msgs[address] = msgs[address] + "PEBUMSG.CASE.NEWMSG" + fromAddress + message
+        msgs[address] = msgs[address] + "PEBUMSG.CASE.NEWMSG" + message
     else:
-        msgs[address] = "PEBUMSG.CASE.NEWMSG" + fromAddress + message
+        msgs[address] = "PEBUMSG.CASE.NEWMSG"  + message
     return None   
 def clientthread(conn, addr):
     global currentlyConnected
     global msgs
     
-    conn.send(b'REPOND SVP') 
+    conn.send(b'Connection initiated.') 
     clientUUID = recieve(conn)
     try :
         if (msgs[clientUUID] == '' or msgs[clientUUID] == None):
             msgs[clientUUID] == ''
             messagesExist = False
         else:
-            print(msgs[clientUUID])
             messagesExist = True #here
     except KeyError:
         messagesExist = False
-    
-    data = clientUUID
     send(conn, clientUUID)
     verificationPhrase = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
     verificationPhrase = bytes(str(verificationPhrase), 'utf-8')
     encryptedVerificationPhrase = encrypt(clientUUID, verificationPhrase)
     rawSend(conn, encryptedVerificationPhrase)
     clientSECRET = rawRecieve(conn)
-    
     if (clientSECRET != verificationPhrase):
         print('Imposter detected: on ' + addr[0] + ":" + str(addr[1]))
         return
-    send(conn, server_pk)
+    send(conn, server_pk, clientUUID)
     recieve(conn)
-    send(conn, 'You have logged in as ' + clientUUID)
+    if (messagesExist):
+        send(conn, 'You have logged in as ' + clientUUID +'\nYou have new messages!', clientUUID)
+    else:
+        send(conn, 'You have logged in as ' + clientUUID, clientUUID)
     clientSECRET = '' # wipe for security
     currentlyConnected.append(clientUUID)
     print('Connected with ' + clientUUID + ' on ' + addr[0] + ":" + str(addr[1]))
@@ -130,11 +140,11 @@ def clientthread(conn, addr):
                         address = data[:149]
                         address = address[-130:]
                         if (address in currentlyConnected):
-                            sendMessage(address, clientUUID, message, messagesExist)
+                            sendMessage(address, clientUUID, message)
                             messagesExist = True
                             send(conn,"The message has been delivered successfully.", clientUUID)
                         else:
-                            sendMessage(address, clientUUID, message, messagesExist)
+                            sendMessage(address, clientUUID, message)
                             messagesExist = True
                             send(conn, "The UUID '"+address+"' is not currently connected to this swarm, delivery will be attempted but do not consider it delivered.")
                     elif (str(data).startswith("PEBUMSG.CASE.CHKMSG")):
@@ -145,7 +155,9 @@ def clientthread(conn, addr):
                         else:
                             send(conn, "PEBUMSG.CASE.NOMSGS")
                     elif (str(data).startswith("PEBUMSG.CASE.CONNEC")):
-                        send(conn, "Your UUID = " + clientUUID + "\nServer UUID = " + server_pk, clientUUID)
+                        send(conn, "Your UUID = " + clientUUID + "\nServ UUID = " + server_pk, clientUUID)
+                    else:
+                        print(data)
             except ConnectionAbortedError:
                 break
             except ConnectionResetError:

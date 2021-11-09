@@ -15,8 +15,11 @@ except binascii.Error:
     msg = encrypt(publicKey, b'This key is valid.')
 assert str(decrypt(privateKey, msg)) == "b'This key is valid.'"
 print('Generation complete!')
-print('Your public key is: ' + publicKey)
+f = open('public.pem', 'w')
+f.write(publicKey)
+f.close()
 f = open('private.pem', "w")
 f.write(privateKey)
 f.close()
+print('Your public key has been saved in public.pem')
 print('Your private key has been saved in private.pem')
