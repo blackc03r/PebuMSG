@@ -1,6 +1,6 @@
 # PebuMSG
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/pebu1337/PebuMSG/blob/main/LICENSE) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/) [![Shields.io](https://img.shields.io/badge/shields.io-ok-green.svg?style=flat)](http://shields.io/) [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde) <br>
-An end to end encrypted self hosted messaging solution. Designed to solve trust issues with centralized service providers. <br>
+A simple end to end encrypted self hosted messaging solution. Designed to solve trust issues with centralized service providers. <br>
 <b/>Still in pre-alpha, no audit or rigourous security testing done yet.</b>
 ## Features
 * End to end encrypted. Transport encryption between server and client. Messages are encrypted with the clients public key that is only stored on the client machine. Server cannot view the contents of the message ever.
