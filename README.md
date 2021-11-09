@@ -20,5 +20,5 @@ An end to end encrypted self hosted messaging solution. Designed to solve trust 
 * Create a GUI.
 ### Installation
 ```pip install eciespy``` <- Prequesite for encryption library. <br>
-Port forward port 60000 to the server if necessasary. <br>
+Port forward port 60000/tcp to the server if necessasary. <br>
 Run the server.py script as you would normally, if a private key is not in private.txt and a public key is not in public.txt, the server will generate one. <br>
