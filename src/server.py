@@ -1,6 +1,3 @@
-'''
-	Simple socket server using threads
-'''
 lastData = "DEEZ NUTS"
 import socket
 import sys
@@ -32,10 +29,8 @@ except Exception as e:
     f = open('private.txt', 'w')
     f.write(privateKey)
     f.close()
-    privateKeyObject = ' '
-    
+    privateKeyObject = ' ' 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#Bind socket to local host and port
 try:
 	s.bind((HOST, PORT))
 except socket.error as msg:
@@ -74,7 +69,6 @@ def rawRecieve(s):
             return None
         if data:
             return data   
-#Start listening on socket
 s.listen(10)
 print ('PebuMSG Server Established.')   
 def checkMessages(clientUUIDinfo):
@@ -97,7 +91,6 @@ def sendMessage(address, fromAddress, message):
 def clientthread(conn, addr):
     global currentlyConnected
     global msgs
-    
     conn.send(b'Connection initiated.') 
     clientUUID = recieve(conn)
     try :
@@ -123,7 +116,7 @@ def clientthread(conn, addr):
         send(conn, 'You have logged in as ' + clientUUID +'\nYou have new messages!', clientUUID)
     else:
         send(conn, 'You have logged in as ' + clientUUID, clientUUID)
-    clientSECRET = '' # wipe for security
+    clientSECRET = ''
     currentlyConnected.append(clientUUID)
     print('Connected with ' + clientUUID + ' on ' + addr[0] + ":" + str(addr[1]))
     while True:
@@ -134,7 +127,7 @@ def clientthread(conn, addr):
                 if (data == lastData):
                     pass
                 else:
-                    data==lastData # FIX THIS LOL
+                    data==lastData 
                     if (str(data).startswith("PEBUMSG.CASE.SNDMSG") == True):
                         message = data[149:]
                         address = data[:149]

@@ -1,13 +1,11 @@
 import socket
 import hashlib
 import sys
-from base64 import b64decode
-from base64 import b64encode
+from base64 import b64decode, b64encode
 HOST = '127.0.0.1'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
-import time
 try:
     f = open('public.pem')
     publicKey = f.readline()
@@ -20,15 +18,22 @@ except Exception as e:
     sys.exit(0)
 def parseResponse(responsemessage):
     parsed = responsemessage.split("PEBUMSG.CASE.NEWMSG")
-    messages = "New messages:"
+    messages = { 'beginning' : 'Messages: '}
+    addresses = []
     for i in range(1, len(parsed)):
         msgg = str(decrypt(privateKey, b64decode(parsed[i])))
-
         address = msgg[:132]
         address = address[2:]
         msgg = msgg[132:-1]
-        messages = messages + ("\nFrom: " + address + "\nContains: " + msgg)
-    return messages
+        try:
+            messages[address] = messages[address] + "\n" + msgg
+        except KeyError:
+            messages[address] = msgg
+            addresses.append(address)
+    messagesString = "From: " + addresses[0] + "\n" + messages[addresses[0]]
+    for x in range(1, len(addresses)):
+        messagesString += "\nFrom: " + addresses[x] + "\n" + messages[addresses[x]] 
+    return messagesString
 def recieve(s):
     while True:
         data = s.recv(15000)
@@ -48,9 +53,6 @@ def recieve(s):
             data = data.replace('"', "")
             data = data.replace(r'''\\''', '''\\''')
             return data
-
-
-
 def rawSend(s, bytes):
     s.sendall(bytes)
 def rawRecieve(s):
