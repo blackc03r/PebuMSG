@@ -1,5 +1,6 @@
 # PebuMSG
-An end to end encrypted self hosted messaging solution. 
+An end to end encrypted self hosted messaging solution. Designed to solve trust issues with centralized service providers. <br>
+<b/>Still in pre-alpha, no audit or rigourous security testing done yet.</b>
 ## Features
 * End to end encrypted. Transport encryption between server and client. Messages are encrypted with the clients public key that is only stored on the client machine. Server cannot view the contents of the message ever.
 ## Risks
