@@ -7,9 +7,7 @@ HOST = '127.0.0.1'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
-#privateKeyObject = generate_eth_key()
-#privateKey = privateKeyObject.to_hex()
-#publicKey = privateKeyObject.public_key.to_hex()
+import time
 try:
     f = open('public.pem')
     publicKey = f.readline()
