@@ -18,7 +18,7 @@ A simple end to end encrypted self hosted messaging solution. Designed to solve 
 * Create an onion routing protocol to hide IP addresses. 
 * Create a GUI.
 ### Installation
-```pip install eciespy``` <- Prequesite for encryption library. <br>
+```pip install eciespy``` <- Prerequesite for encryption library. <br>
 Port forward port 60000/tcp to the server if necessasary. <br>
 Run the server.py script as you would normally, if a private key is not in private.txt and a public key is not in public.txt, the server will generate one. <br>
 ### Testing 
