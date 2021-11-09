@@ -13,7 +13,6 @@ A simple end to end encrypted self hosted messaging solution. Designed to solve 
 * Clean up code and inital handshake technique.
 * Allow for more customization options.
 * Better memory optimization.
-* Group messages by sender when checking messages. Reduces long lists of messages from the same person.
 ## Future Ideas
 * Create a group chat feature.
 * Create an onion routing protocol to hide IP addresses. 
