@@ -116,7 +116,6 @@ def clientthread(conn, addr):
         send(conn, 'You have logged in as ' + clientUUID +'\nYou have new messages!', clientUUID)
     else:
         send(conn, 'You have logged in as ' + clientUUID, clientUUID)
-    clientSECRET = ''
     currentlyConnected.append(clientUUID)
     print('Connected with ' + clientUUID + ' on ' + addr[0] + ":" + str(addr[1]))
     while True:
@@ -132,14 +131,8 @@ def clientthread(conn, addr):
                         message = data[149:]
                         address = data[:149]
                         address = address[-130:]
-                        if (address in currentlyConnected):
-                            sendMessage(address, clientUUID, message)
-                            messagesExist = True
-                            send(conn,"The message has been delivered successfully.", clientUUID)
-                        else:
-                            sendMessage(address, clientUUID, message)
-                            messagesExist = True
-                            send(conn, "The UUID '"+address+"' is not currently connected to this swarm, delivery will be attempted but do not consider it delivered.")
+                        sendMessage(address, clientUUID, message)
+                        send(conn,"The message has been delivered successfully.", clientUUID)
                     elif (str(data).startswith("PEBUMSG.CASE.CHKMSG")):
                         if (checkMessages(clientUUID) == True):
                             send(conn, msgs[clientUUID], clientUUID)
