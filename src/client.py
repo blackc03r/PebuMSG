@@ -94,6 +94,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         whatToDo = input("What would you like to do?: ")
         if (whatToDo == 'send' or whatToDo == 'Send' or whatToDo == 'snd' or whatToDo == 'sen' or whatToDo == 'msg'):
             sendingAddress = input("Please input the desired address to send to: ")
+            sendingAddress = sendingAddress.strip()
             if (len(sendingAddress) != 130):
                 print("Invalid address.")
             else:
