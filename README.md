@@ -4,6 +4,7 @@ A simple end to end encrypted self hosted messaging solution. Designed to solve 
 <b/>Still in pre-alpha, no audit or rigourous security testing done yet.</b>
 ## Features
 * End to end encrypted. Transport encryption between server and client. Messages are encrypted with the clients public key that is only stored on the client machine. Server cannot view the contents of the message ever.
+* Simple and easy to deploy or learn off of. Entire codebase is less than 1000 lines and will remain that way in perpetuity. 
 ## Risks
 * IP is not anonymized, while it is not stored by the server on purpose, an adversary can modify the servers source code to log that.
 * Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
