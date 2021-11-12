@@ -22,8 +22,7 @@ def parseResponse(responsemessage):
     addresses = []
     for i in range(1, len(parsed)):
         msgg = str(decrypt(privateKey, b64decode(parsed[i])))
-        address = msgg[:132]
-        address = address[2:]
+        address = msgg[2:132]
         msgg = msgg[132:-1]
         try:
             messages[address] = messages[address] + "\n" + msgg
