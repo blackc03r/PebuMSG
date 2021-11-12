@@ -1,13 +1,9 @@
 lastData = "Pebu1337/PebuMSG"
-import socket
-import sys
+import socket, sys, random, string, hashlib
 from _thread import *
-import hashlib
 from Crypto import Random
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
-import random
-import string
 HOST = '' # Binds to all network interfaces
 PORT = 60000	
 currentlyConnected = ['']
