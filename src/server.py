@@ -25,7 +25,6 @@ except Exception as e:
     f = open('private.txt', 'w')
     f.write(privateKey)
     f.close()
-    privateKeyObject = ' ' 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
 	s.bind((HOST, PORT))
@@ -150,5 +149,4 @@ def clientthread(conn, addr):
 while 1:
 	conn, addr = s.accept()
 	start_new_thread(clientthread ,(conn, addr))
-
 s.close()
