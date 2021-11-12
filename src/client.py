@@ -1,6 +1,4 @@
-import socket
-import hashlib
-import sys
+import socket, hashlib, sys
 from base64 import b64decode, b64encode
 HOST = '18.215.143.240'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
