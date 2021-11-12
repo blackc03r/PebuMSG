@@ -1,4 +1,4 @@
-lastData = "DEEZ NUTS"
+lastData = "Pebu1337/PebuMSG"
 import socket
 import sys
 from _thread import *
@@ -8,8 +8,8 @@ from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
 import random
 import string
-HOST = ''	# Symbolic name meaning all available interfaces
-PORT = 60000	# Arbitrary non-privileged port
+HOST = '' # Binds to all network interfaces
+PORT = 60000	
 currentlyConnected = ['']
 msgs = {'address':'message'}
 try:
