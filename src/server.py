@@ -88,14 +88,7 @@ def clientthread(conn, addr):
     global msgs
     conn.send(b'Connection initiated.') 
     clientUUID = recieve(conn)
-    try :
-        if (msgs[clientUUID] == '' or msgs[clientUUID] == None):
-            msgs[clientUUID] == ''
-            messagesExist = False
-        else:
-            messagesExist = True #here
-    except KeyError:
-        messagesExist = False
+    messagesExist = checkMessages(clientUUID)
     send(conn, clientUUID)
     verificationPhrase = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
     verificationPhrase = bytes(str(verificationPhrase), 'utf-8')
