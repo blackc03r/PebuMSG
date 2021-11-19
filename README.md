@@ -7,13 +7,14 @@ Not meant as a real time communication solution, more as a secure "dropbox" for 
 * End to end encrypted. Transport encryption between server and client. Messages are encrypted with the clients public key that is only stored on the client machine. Server cannot view the contents of the message ever.
 * Simple and easy to deploy or learn off of. Entire codebase is less than 1000 lines and will remain that way in perpetuity. 
 * Public key encryption for messages between clients and public key encryption for server<->client communication. 
+* Only communication that is sent unencrypted is the servers public key to the client, this way a network snooper cannot even get what user is logging in.
 ## Risks
 * IP is not anonymized, while it is not stored by the server on purpose, an adversary can modify the servers source code to log that.
 * Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
 * Public and Private key are saved in plaintext on the client machine.
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
-* Clean up code and inital handshake technique.
+* ~~Clean up code and inital handshake technique.~~ # Done 19-11-2021
 * Allow for more customization options.
 * Better memory optimization.
 ## Future Ideas
