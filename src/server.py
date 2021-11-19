@@ -86,20 +86,9 @@ def sendMessage(address, fromAddress, message):
 def clientthread(conn, addr):
     global currentlyConnected
     global msgs
-    conn.send(b'Connection initiated.') 
+    send(conn, server_pk)
     clientUUID = recieve(conn)
     messagesExist = checkMessages(clientUUID)
-    send(conn, clientUUID)
-    verificationPhrase = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
-    verificationPhrase = bytes(str(verificationPhrase), 'utf-8')
-    encryptedVerificationPhrase = encrypt(clientUUID, verificationPhrase)
-    rawSend(conn, encryptedVerificationPhrase)
-    clientSECRET = rawRecieve(conn)
-    if (clientSECRET != verificationPhrase):
-        print('Imposter detected: on ' + addr[0] + ":" + str(addr[1]))
-        return
-    send(conn, server_pk, clientUUID)
-    recieve(conn)
     if (messagesExist):
         send(conn, 'You have logged in as ' + clientUUID +'\nYou have new messages!', clientUUID)
     else:
