@@ -127,7 +127,7 @@ def clientthread(conn, addr):
                             msgs[clientUUID] = ''
                             messagesExist = False
                         else:
-                            send(conn, "PEBUMSG.CASE.NOMSGS")
+                            send(conn, "PEBUMSG.CASE.NOMSGS", clientUUID)
                     elif (str(data).startswith("PEBUMSG.CASE.CONNEC")):
                         send(conn, "Your UUID = " + clientUUID + "\nServ UUID = " + server_pk, clientUUID)
                     else:
