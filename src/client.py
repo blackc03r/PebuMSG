@@ -71,22 +71,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     except ConnectionRefusedError:
         print("Node not found.")
         exit()
-    recieve(s)
-    send(s, publicKey)
-    message = recieve(s)
-    if (message != publicKey):
-        print('UUID Recieved from server does not match')
-        print(message)
-        print(publicKey)
-        print('Did you use PebuMSG Identity Generator?')
-        exit()
-    phrase = rawRecieve(s)
-    decryptedPhrase = decrypt(privateKey, phrase)
-    rawSend(s, decryptedPhrase)
     server_pk = recieve(s)
-    send(s, 'ACK',server_pk)
-    message = recieve(s)
-    print(message)
+    send(s, publicKey, server_pk)
+    print(recieve(s))
     while 1:
         whatToDo = input("What would you like to do?: ")
         if (whatToDo == 'send' or whatToDo == 'Send' or whatToDo == 'snd' or whatToDo == 'sen' or whatToDo == 'msg'):
@@ -104,7 +91,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 else:
                     print("Message too long. Must be less than 877 characters.")
         elif (whatToDo == 'check' or whatToDo =='chk' or whatToDo == 'Check'):
-            send(s, "PEBUMSG.CASE.CHKMSG")
+            send(s, "PEBUMSG.CASE.CHKMSG", server_pk)
             response = recieve(s)
             if (response.startswith("PEBUMSG.CASE.NOMSGS")):
                 print("No new messages on this swarm.")
@@ -116,9 +103,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             response = recieve(s)
             print(response + "\nCurrent Node: " + HOST)
         elif (whatToDo == 'help' or whatToDo == 'Help'):
-            print('wai: Checks connection status and print UUID as returned by the server.')
-            print('snd: Sends a message to a given user')
-            print('chk: Checks your messages')
+            print('wai: Checks connection status and print UUID as returned by the server. \nsnd: Sends a message to a given user \nchk: Checks your messages')
         else:
             print("Invalid Command. Type help to see available commands.")
 s.close()
