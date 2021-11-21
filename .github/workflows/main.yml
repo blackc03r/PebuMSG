@@ -34,7 +34,7 @@ jobs:
         uses: sunnysid3up/python-linter@v0.1-beta.7
         with:
     # Source file or directory
-           source: src # optional, default is .
+           source: src/server # optional, default is .
     # Set strictness for lint [low, medium, high]
            strict: high # optional, default is medium 
     # Mypy options
@@ -54,6 +54,6 @@ jobs:
         uses: piotrpawlaczek/python-blacken@v20.8b1
         with:
     # File or directory to run black on.
-          path: src # optional, default is .
+          path: src/client # optional, default is .
     # The number of characters allowed per line.
           line-length: 81 # optional, default is 81
