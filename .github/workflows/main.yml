@@ -1,0 +1,61 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Beginning Tests
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.6
+      - name: Python Linter
+  # You may pin to the exact commit or the version.
+  # uses: sunnysid3up/python-linter@93076bd8f740f062069291d738fc70c1b4171c1d
+        uses: sunnysid3up/python-linter@v0.1-beta.7
+        with:
+    # Source file or directory
+           source: src # optional, default is .
+    # Set strictness for lint [low, medium, high]
+           strict: high # optional, default is medium 
+    # Mypy options
+           mypy-options: ""# optional, default is 
+    # Pylint options
+           pylint-options: "" # optional, default is 
+    # Black options
+           black-options: ""# optional, default is 
+    # Isort options
+           isort-options: "" # optional, default is 
+    # Confirm if source is a Django project
+           django: false # optional
+      # Runs a set of commands using the runners shell
+      - name: Python Blacken
+  # You may pin to the exact commit or the version.
+  # uses: piotrpawlaczek/python-blacken@00da49d5262ea8408aa006873de629fef9fc9dd1
+        uses: piotrpawlaczek/python-blacken@v20.8b1
+        with:
+    # File or directory to run black on.
+          path: src # optional, default is .
+    # The number of characters allowed per line.
+          line-length: 81 # optional, default is 81
