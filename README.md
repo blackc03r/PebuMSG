@@ -27,7 +27,6 @@ hi test 1
   * See to do list #5
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
-* ~~Clean up code and inital handshake technique.~~ # Done 19-11-2021
 * Allow for more customization options.
 * Better memory optimization.
 * Encryption of public and private key via a password on the client machine. Require this password upon running of the client to unlock them.
