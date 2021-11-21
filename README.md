@@ -46,5 +46,4 @@ By default, client.py is configured to connect to the default open node that I r
 Run ```help``` at the prompt to see a list of commands. 
 ### Testing 
 The default node in client.py is currently a node controlled by me run on AWS. Do not consider this node secure by any means. <br>
-I run a free node for this service located @ 18.215.143.240:60000 <br>
 Please shoot me a message on there @  <b/>0xc31aa1d1d1016a81648cc0f5f002e53502795f9c784daf454540821149d739143bc16467dc3d99a18bea457fced89003693ff55361ca41327c32de22de947a84</b>
