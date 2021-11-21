@@ -24,7 +24,7 @@ hi test 1
   * Easily solved with the use of a trusted VPN provider such as [OVPN](https://www.ovpn.com)
 * Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
 * Public and Private key are saved in plaintext on the client machine.
-  * See to do list #5
+  * See to do list #4
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
 * Allow for more customization options.
