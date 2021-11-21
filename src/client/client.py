@@ -1,6 +1,6 @@
 import socket, hashlib, sys
 from base64 import b64decode, b64encode
-HOST = '127.0.0.1'  # The server's hostname or IP address
+HOST = '18.215.143.240'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
