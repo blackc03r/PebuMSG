@@ -9,7 +9,7 @@ Not meant as a real time communication solution, more as a secure "dropbox" for 
 * Public key encryption for messages between clients and public key encryption for server<->client communication. 
 * Only communication that is sent unencrypted is the servers public key to the client, this way a network snooper cannot even get what user is logging in.
 ## Message Dumping
-Example dump of the messages dictionary on the server side: <br>
+Example dump of the messages on the server side: <br>
 ```
 '0xc31aa1d1d1016a81648cc0f5f002e53502795f9c784daf454540821149d739143bc16467dc3d99a18bea457fced89003693ff55361ca41327c32de22de947a84': 
 'PEBUMSG.CASE.NEWMSGBOvna8sCCgv3MI4dymqD6oBLQvUQNaedgFahz9thQX/Qo3IczQOjBC2mdt/4oEJPtcqkGQh1FKWnHDvqAqwgYNXtTnXc+J21c+SZ0XSCCnOF3FG9OwlXKsU4FqRk4mrhaIT9z9zGdY/TXEyQHD4ZeFEBkcgC2/hjQFKlFHMPg5XPBiowAdPSPC+87vwQrWZXOcJJmKD+dO2KCGqdtzFsM3iR/vLXcJzaIex8o56N1/dMbYWJhAJZ4oI14A3Q9FfhCd+X0wlKfXz4D1OL3BngGb8JAGyY/HXaeOfPp0o6ymWbHr6y3mm6WlLwRPg='}
