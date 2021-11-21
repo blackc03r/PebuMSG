@@ -8,6 +8,17 @@ Not meant as a real time communication solution, more as a secure "dropbox" for 
 * Simple and easy to deploy or learn off of. Entire codebase is less than 1000 lines and will remain that way in perpetuity. 
 * Public key encryption for messages between clients and public key encryption for server<->client communication. 
 * Only communication that is sent unencrypted is the servers public key to the client, this way a network snooper cannot even get what user is logging in.
+## Message Dumping
+Example dump of the messages dictionary on the server side: <br>
+```
+'0xc31aa1d1d1016a81648cc0f5f002e53502795f9c784daf454540821149d739143bc16467dc3d99a18bea457fced89003693ff55361ca41327c32de22de947a84': 
+'PEBUMSG.CASE.NEWMSGBOvna8sCCgv3MI4dymqD6oBLQvUQNaedgFahz9thQX/Qo3IczQOjBC2mdt/4oEJPtcqkGQh1FKWnHDvqAqwgYNXtTnXc+J21c+SZ0XSCCnOF3FG9OwlXKsU4FqRk4mrhaIT9z9zGdY/TXEyQHD4ZeFEBkcgC2/hjQFKlFHMPg5XPBiowAdPSPC+87vwQrWZXOcJJmKD+dO2KCGqdtzFsM3iR/vLXcJzaIex8o56N1/dMbYWJhAJZ4oI14A3Q9FfhCd+X0wlKfXz4D1OL3BngGb8JAGyY/HXaeOfPp0o6ymWbHr6y3mm6WlLwRPg='}
+```
+What the client(0xc31a...47a84) recieving this sees: <br>
+```
+From: 0x6180bff027c8ae6b765c4cc482be5cd074667ca4626af18fcfc46d9c5f9d4bf9b935df90f606b58eb5fc33f799d8b792503a5cbe407a8ed845608805543f1350
+hi test 1 
+```
 ## Risks
 * IP is not anonymized, while it is not stored by the server on purpose, an adversary can modify the servers source code to log that.
 * Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
