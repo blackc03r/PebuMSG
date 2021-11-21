@@ -77,8 +77,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     while 1:
         whatToDo = input("What would you like to do?: ")
         if (whatToDo == 'send' or whatToDo == 'Send' or whatToDo == 'snd' or whatToDo == 'sen' or whatToDo == 'msg'):
-            sendingAddress = input("Please input the desired address to send to: ")
-            sendingAddress = sendingAddress.strip()
+            sendingAddress = input("Please input the desired address to send to: ").strip()
             if (len(sendingAddress) != 130):
                 print("Invalid address.")
             else:
@@ -95,13 +94,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             response = recieve(s)
             if (response.startswith("PEBUMSG.CASE.NOMSGS")):
                 print("No new messages on this swarm.")
-            else:
-                msgs = parseResponse(response)   
-                print(msgs)
+            else:  
+                print(parseResponse(response))
         elif (whatToDo == 'whoami' or whatToDo == 'wai'):
             send(s, "PEBUMSG.CASE.CONNEC", server_pk)
-            response = recieve(s)
-            print(response + "\nCurrent Node: " + HOST)
+            print(recieve(s) + "\nCurrent Node: " + HOST)
         elif (whatToDo == 'help' or whatToDo == 'Help'):
             print('wai: Checks connection status and print UUID as returned by the server. \nsnd: Sends a message to a given user \nchk: Checks your messages')
         else:
