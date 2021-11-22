@@ -54,16 +54,6 @@ def send(s, msg, pk=None):
         s.sendall(encrypt(pk, bytes(str(msg),'utf-8')))
     else:
         s.sendall(bytes(str(msg),'utf-8'))
-def rawSend(s, bytes):
-    s.sendall(bytes)
-def rawRecieve(s):
-     while True:
-        try :
-            data = s.recv(15000)
-        except Exception as e:
-            return None
-        if data:
-            return data   
 s.listen(10)
 print ('PebuMSG Server Established.')   
 def checkMessages(clientUUIDinfo):
