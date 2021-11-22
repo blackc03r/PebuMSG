@@ -51,15 +51,7 @@ def recieve(s):
             data = data.replace(r'''\\''', '''\\''')
             return data
 def rawSend(s, bytes):
-    s.sendall(bytes)
-def rawRecieve(s):
-     while True:
-        try :
-            data = s.recv(15000)
-        except Exception as e:
-            return None
-        if data:
-            return data   
+    s.sendall(bytes) 
 def send(s, msg, pk=None):
     if (pk != None):
         s.sendall(encrypt(pk, bytes(str(msg), 'utf-8')))
