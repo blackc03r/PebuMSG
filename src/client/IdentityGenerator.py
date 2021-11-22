@@ -13,7 +13,6 @@ except binascii.Error:
     publicKey = privateKeyObject.public_key.to_hex()
     msg = encrypt(publicKey, b'This key is valid.')
 assert str(decrypt(privateKey, msg)) == "b'This key is valid.'"
-print('Generation complete!')
 f = open('public.pem', 'w')
 f.write(publicKey)
 f.close()
