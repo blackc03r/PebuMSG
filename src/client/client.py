@@ -76,7 +76,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 data = 'PEBUMSG.CASE.SNDMSG' + sendingAddress
                 message = input("What is the message: ")
-                if (len(message) <= 2000):
+                if (len(message) <= 1580):
                     data += str(b64encode(encrypt(sendingAddress, bytes(publicKey + message, 'utf-8'))))
                     rawSend(s,encrypt(server_pk, bytes(data,'utf-8')))
                     print(recieve(s))
