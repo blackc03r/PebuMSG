@@ -4,6 +4,7 @@ from _thread import *
 from Crypto import Random
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
+from base64 import b64decode, b64encode
 HOST = '' # Binds to all network interfaces
 PORT = 60000	
 currentlyConnected = ['']
@@ -69,9 +70,9 @@ def checkMessages(clientUUIDinfo):
         return messagesExist
 def sendMessage(address, fromAddress, message):
     if (checkMessages(address)):
-        msgs[address] = msgs[address] + "PEBUMSG.CASE.NEWMSG" + message
+        msgs[address] = msgs[address] + "PEBUMSG.CASE.NEWMSG" + str(b64encode(encrypt(address, bytes(fromAddress, 'utf-8')))) + message
     else:
-        msgs[address] = "PEBUMSG.CASE.NEWMSG"  + message
+        msgs[address] = "PEBUMSG.CASE.NEWMSG"  + str(b64encode(encrypt(address, bytes(fromAddress, 'utf-8')))) + message
     return None   
 def clientthread(conn, addr):
     global currentlyConnected
