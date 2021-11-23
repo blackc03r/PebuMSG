@@ -31,6 +31,9 @@ hi test 1
 * Allow for more customization options.
 * Better memory optimization.
 * Encryption of public and private key via a password on the client machine. Require this password upon running of the client to unlock them.
+* Timestamp for messages
+* Encrypted file sending.
+* Fixing of all risks in the risks section.
 ## Future Ideas
 * Create a group chat feature.
 * Create an onion routing protocol to hide IP addresses. 
