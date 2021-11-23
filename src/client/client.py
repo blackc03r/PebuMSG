@@ -18,17 +18,20 @@ def parseResponse(responsemessage):
     parsed = responsemessage.split("PEBUMSG.CASE.NEWMSG")
     messages = { 'beginning' : 'Messages: '}
     addresses = []
+    messagesString = ""
     for i in range(1, len(parsed)):
-        msgg = str(decrypt(privateKey, b64decode(parsed[i])))
-        address = msgg[2:132]
-        msgg = msgg[132:-1]
         try:
-            messages[address] = messages[address] + "\n" + msgg
-        except KeyError:
-            messages[address] = msgg
-            addresses.append(address)
-    messagesString = "From: " + addresses[0] + "\n" + messages[addresses[0]]
-    for x in range(1, len(addresses)):
+            msgg = str(decrypt(privateKey, b64decode(parsed[i])))
+            address = msgg[2:132]
+            msgg = msgg[132:-1]
+            try:
+                messages[address] = messages[address] + "\n" + msgg
+            except KeyError:
+                messages[address] = msgg
+                addresses.append(address)
+        except ValueError:
+            messagesString += "\nInvalid message: " + parsed[i]
+    for x in range(0, len(addresses)):
         messagesString += "\nFrom: " + addresses[x] + "\n" + messages[addresses[x]] 
     return messagesString
 def recieve(s):
