@@ -1,6 +1,6 @@
 import socket, hashlib, sys
 from base64 import b64decode, b64encode
-HOST = '18.215.143.240'  # The server's hostname or IP address
+HOST = '127.0.0.1'  # The server's hostname or IP address
 PORT = 60000     # The port used by the server
 from ecies.utils import generate_eth_key, generate_key
 from ecies import encrypt, decrypt
@@ -21,9 +21,10 @@ def parseResponse(responsemessage):
     messagesString = ""
     for i in range(1, len(parsed)):
         try:
-            msgg = str(decrypt(privateKey, b64decode(parsed[i])))
-            address = msgg[2:132]
-            msgg = msgg[132:-1]
+            msgg = str(decrypt(privateKey, b64decode(parsed[i][304:])))
+            msgg = stripBytes(msgg)
+            address = str(decrypt(privateKey, b64decode(parsed[i][:304])))
+            address = stripBytes(address)
             try:
                 messages[address] = messages[address] + "\n" + msgg
             except KeyError:
@@ -53,6 +54,16 @@ def recieve(s):
             data = data.replace('"', "")
             data = data.replace(r'''\\''', '''\\''')
             return data
+def stripBytes(data):
+    data = str(data)
+    data = data.replace("b'", "")
+    data = data.replace("\\n","\n")
+    data = data.replace("'", "")
+    data = data.replace('b"', "")
+    data = data.replace(r"\\n","\n")
+    data = data.replace('"', "")
+    data = data.replace(r'''\\''', '''\\''') 
+    return data   
 def rawSend(s, bytes):
     s.sendall(bytes) 
 def send(s, msg, pk=None):
@@ -80,7 +91,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 data = 'PEBUMSG.CASE.SNDMSG' + sendingAddress
                 message = input("What is the message: ")
                 if (len(message) <= 1580):
-                    data += str(b64encode(encrypt(sendingAddress, bytes(publicKey + message, 'utf-8'))))
+                    data += str(b64encode(encrypt(sendingAddress, bytes(message, 'utf-8'))))
                     rawSend(s,encrypt(server_pk, bytes(data,'utf-8')))
                     print(recieve(s))
                 else:
