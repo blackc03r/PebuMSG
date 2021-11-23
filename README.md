@@ -20,12 +20,16 @@ From: 0x6180bff027c8ae6b765c4cc482be5cd074667ca4626af18fcfc46d9c5f9d4bf9b935df90
 hi test 1 
 ```
 ## Risks
-* **Message Spoofing is currently possible, an adversary can modify the client code to make a message appear as if it is coming from anyone! While they will never be able to check the messages or login as their spoofed identity, it is possible to fake send messages.**
 * IP is not anonymized, while it is not stored by the server on purpose, an adversary can modify the servers source code to log that.
   * Easily solved with the use of a trusted VPN provider such as [OVPN](https://www.ovpn.com)
-* Server can see how many messages a specific address has, while the server cannot see who sent the message or the message.
+* Server can see how many messages a specific address has, and a malicious server can log who sent the message + their ip, but not the message. 
 * Public and Private key are saved in plaintext on the client machine.
-  * See [to do list](https://github.com/pebu1337/PebuMSG/blob/main/README.md#to-do-list).
+  * See [to do list](https://github.com/pebu1337/PebuMSG/blob/main/README.md#to-do-list). <a/><br>
+
+| Role    | Visible                                                                                                                          |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Client  | Clients public+private key, servers public key, any recipents public key, messages sent to the client.                                    |
+| Server  | Servers public+private key, clients public key, how many message each client has in memory and who sent them, ip address of the clients.  |
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
 * Allow for more customization options.
