@@ -42,14 +42,7 @@ def recieve(s):
                 data = decrypt(privateKey, data)
             except ValueError:
                 pass
-            data = str(data)
-            data = data.replace("b'", "")
-            data = data.replace("\\n","\n")
-            data = data.replace("'", "")
-            data = data.replace('b"', "")
-            data = data.replace(r"\\n","\n")
-            data = data.replace('"', "")
-            data = data.replace(r'''\\''', '''\\''')
+            data = stripBytes(data)
             return data
 def stripBytes(data):
     data = str(data)
