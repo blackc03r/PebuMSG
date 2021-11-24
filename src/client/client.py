@@ -5,10 +5,10 @@ PORT = 60000     # The port used by the server
 from library import generate_eth_key, generate_key, encrypt, decrypt
 try:
     f = open('public.pem')
-    publicKey = f.readline()
+    publicKey = b64decode(f.readline())
     f.close()
     f = open('private.pem')
-    privateKey = f.readline()
+    privateKey = b64decode(f.readline())
     f.close()
 except Exception as e:
     print('Could not open public.pem and private.pem; please run the identity generator!')
