@@ -1,5 +1,4 @@
-from ecies.utils import generate_eth_key, generate_key
-from ecies import encrypt, decrypt
+from library import generate_eth_key, generate_key, encrypt, decrypt
 from base64 import b64decode, b64encode
 print("Welcome to PebuMSG identity generator.")
 privateKeyObject = generate_eth_key()
