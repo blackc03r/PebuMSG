@@ -2,8 +2,7 @@ lastData = "Pebu1337/PebuMSG"
 import socket, sys, random, string, hashlib
 from _thread import *
 from Crypto import Random
-from ecies.utils import generate_eth_key, generate_key
-from ecies import encrypt, decrypt
+from library import generate_eth_key, generate_key, encrypt, decrypt
 from base64 import b64decode, b64encode
 HOST = '' # Binds to all network interfaces
 PORT = 60000	
