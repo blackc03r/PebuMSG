@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pem
+*.ico
 # C extensions
 *.so
 *bat
