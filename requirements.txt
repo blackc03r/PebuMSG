@@ -2,4 +2,3 @@ coincurve
 eth_keys
 pycryptodome
 typing
-
