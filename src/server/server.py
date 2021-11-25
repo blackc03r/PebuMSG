@@ -6,7 +6,6 @@ from library import generate_eth_key, generate_key, encrypt, decrypt
 from base64 import b64decode, b64encode
 HOST = '' # Binds to all network interfaces
 PORT = 60000	
-currentlyConnected = ['']
 msgs = {'address':'message'}
 try:
     f = open('public.txt')
@@ -74,7 +73,6 @@ def sendMessage(address, fromAddress, message):
         msgs[address] = "PEBUMSG.CASE.NEWMSG"  + str(b64encode(encrypt(address, bytes(fromAddress, 'utf-8')))) + message
     return None   
 def clientthread(conn, addr):
-    global currentlyConnected
     global msgs
     send(conn, server_pk)
     clientUUID = recieve(conn)
@@ -83,7 +81,6 @@ def clientthread(conn, addr):
         send(conn, 'You have logged in as ' + clientUUID +'\nYou have new messages!', clientUUID)
     else:
         send(conn, 'You have logged in as ' + clientUUID, clientUUID)
-    currentlyConnected.append(clientUUID)
     print('Connected with ' + clientUUID + ' on ' + addr[0] + ":" + str(addr[1]))
     while True:
             try:
@@ -103,7 +100,7 @@ def clientthread(conn, addr):
                     elif (str(data).startswith("PEBUMSG.CASE.CHKMSG")):
                         if (checkMessages(clientUUID) == True):
                             send(conn, msgs[clientUUID], clientUUID)
-                            msgs[clientUUID] = ''
+                            msgs.pop(clientUUID)
                             messagesExist = False
                         else:
                             send(conn, "PEBUMSG.CASE.NOMSGS", clientUUID)
@@ -117,9 +114,7 @@ def clientthread(conn, addr):
                 break
     print('Connection with ' + clientUUID + ' on ' + addr[0] + ":" + str(addr[1]) + ' terminated.')
     conn.close()
-    currentlyConnected.remove(clientUUID)
 while 1:
 	conn, addr = s.accept()
 	start_new_thread(clientthread ,(conn, addr))
 s.close()
-
