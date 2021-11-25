@@ -11,8 +11,16 @@ try:
     privateKey = f.readline()
     f.close()
 except Exception as e:
-    print('Could not open public.pem and private.pem; please run the identity generator!')
-    sys.exit(0)
+    privateKeyObject = generate_eth_key()
+    privateKey = privateKeyObject.to_hex()
+    publicKey = privateKeyObject.public_key.to_hex()
+    f = open('public.pem', 'w')
+    f.write(publicKey)
+    f.close()
+    f = open('private.pem', 'w')
+    f.write(privateKey)
+    f.close()
+    print("Rewrote public.pem and private.pem due to an error reading it. If these files did not exist before there is nothing to worry about.")
 def parseResponse(responsemessage):
     parsed = responsemessage.split("PEBUMSG.CASE.NEWMSG")
     messages = { 'beginning' : 'Messages: '}
