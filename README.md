@@ -30,7 +30,7 @@ hi test 1
 | Role    | Visible that shouldn't be visible                                                                                                         |
 | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Client  |      :x:                                 |
-| Server  | How many message each client has in memory and who sent them, ip address of the clients.  |
+| Server  | How many messages each client has in memory and who sent them, ip address of the clients.  |
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
 * Allow for more customization options.
