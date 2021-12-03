@@ -26,10 +26,11 @@ hi test 1
 * Public and Private key are saved in plaintext on the client machine.
   * See [to do list](https://github.com/pebu1337/PebuMSG/blob/main/README.md#to-do-list). <a/><br>
 
-| Role    | Visible                                                                                                                          |
+### Chart of Risks
+| Role    | Visible that shouldn't be visible                                                                                                         |
 | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Client  | Clients public+private key, servers public key, any recipents public key, messages sent to the client.                                    |
-| Server  | Servers public+private key, clients public key, how many message each client has in memory and who sent them, ip address of the clients.  |
+| Client  |      :x:                                 |
+| Server  | How many message each client has in memory and who sent them, ip address of the clients.  |
 ## To do list
 * Implement source code checking, sends an alert on sign on if the server is running modified source code.
 * Allow for more customization options.
